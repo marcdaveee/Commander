@@ -9,7 +9,7 @@ namespace Commander.Data
             var commands = new List<Command> 
             {
                 new Command { Id = 1, HowTo = "Change Directory", Line = "cd <name of directory>", Platform = "Windows Command Prompt" },
-                new Command { Id = 2, HowTo="List Directory", Line="ls", Platform="Windows Command Prompt"},
+                new Command { Id = 2, HowTo="List Files/Directory", Line="ls", Platform="Windows Command Prompt"},
                 new Command { Id = 3, HowTo="Make Directory", Line="mkdir <name of directory>", Platform="Windows Command Prompt"}
              };
 
