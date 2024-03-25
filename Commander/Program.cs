@@ -9,6 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ICommanderRepo, MockCommanderRepo>();
+builder.Services.AddDbContext<CommanderContext>
 
 var app = builder.Build();
 
