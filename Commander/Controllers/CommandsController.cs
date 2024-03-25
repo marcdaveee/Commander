@@ -12,11 +12,13 @@ namespace Commander.Controllers
     {
         private readonly ICommanderRepo _repo;
 
-        public CommandsController(ICommanderRepo repo)
+
+        //Assign the dependency injected value to be used inside this class
+        public CommandsController(ICommanderRepo repo)  
         {
             _repo = repo;
         }
-
+        
         //GET api/commands
         [HttpGet]
         public ActionResult <IEnumerable<Command>> GetAllCommands() { 

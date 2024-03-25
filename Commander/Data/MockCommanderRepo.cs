@@ -18,7 +18,7 @@ namespace Commander.Data
 
         public Command GetCommandById(int id)
         {
-            return new Command { Id = 1, HowTo = "Change Directory", Line = "cd <name of directory>", Platform = "Windows Command Prompt" };
+            return new Command { Id = id, HowTo = "Change Directory", Line = "cd <name of directory>", Platform = "Windows Command Prompt" };
         }
 
         //public IEnumerable<Command> GetAllCommands()
