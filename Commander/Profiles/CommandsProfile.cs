@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Commander.Dtos;
+using Commander.Dtos.Command;
 using Commander.Models;
 
 namespace Commander.Profiles
