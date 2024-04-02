@@ -14,5 +14,15 @@ namespace Commander.Mappers
                 Line = commandModel.Line,
             };
         }
+
+        public static Command toCommandFromCreateDto(this CreateCommandDto newCommand)
+        {
+            return new Command
+            {
+                HowTo = newCommand.HowTo,
+                Line = newCommand.Line,
+                Platform = newCommand.Platform,
+            };
+        }
     }
 }

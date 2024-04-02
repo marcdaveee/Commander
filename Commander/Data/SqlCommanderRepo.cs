@@ -1,4 +1,6 @@
-﻿using Commander.Models;
+﻿using Commander.Dtos.Command;
+using Commander.Mappers;
+using Commander.Models;
 
 namespace Commander.Data
 {
@@ -18,6 +20,12 @@ namespace Commander.Data
         public Command GetCommandById(int id)
         {
             return _context.Commands.FirstOrDefault(t => t.Id == id);
+        }
+
+        public void CreateCommand(Command newCommand)
+        {            
+            _context.Commands.Add(newCommand);
+            _context.SaveChanges();            
         }
     }
 }

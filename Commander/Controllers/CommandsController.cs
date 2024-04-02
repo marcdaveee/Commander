@@ -42,17 +42,28 @@ namespace Commander.Controllers
         public ActionResult<CommandReadDto> GetCommandById(int id)
         {
             // Using defined extension mapping methods
-            var commandItem = _repo.GetCommandById(id).toCommandReadDto();
+            var commandItem = _repo.GetCommandById(id);
 
             if(commandItem == null)
             {
                 return NotFound();
             }
 
+            var commandItemDto = commandItem.toCommandReadDto();
             //Using automapper
             //return Ok(_mapper.Map<CommandReadDto>(commandItem));
 
-            return Ok(commandItem);
+            return Ok(commandItemDto);
+        }
+
+        [HttpPost]
+        public IActionResult CreateCommand([FromBody] CreateCommandDto commandDto)
+        {
+            var commandModel = commandDto.toCommandFromCreateDto();
+
+            _repo.CreateCommand(commandModel);
+
+            return CreatedAtAction(nameof(GetCommandById), new { id = commandModel.Id }, commandModel.toCommandReadDto() );
         }
 
     }
