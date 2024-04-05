@@ -66,5 +66,20 @@ namespace Commander.Controllers
             return CreatedAtAction(nameof(GetCommandById), new { id = commandModel.Id }, commandModel.toCommandReadDto() );
         }
 
+        //[HttpPut("{id}")]
+
+        //public IActionResult UpdateCommand([FromRoute] int id, [FromBody] UpdateCommandDto updatedCommandDto)
+        //{
+        //    var commandToUpdate = _repo.GetCommandById(id);
+
+        //    if(commandToUpdate == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var commandModel = updatedCommandDto.toCommandFromUpdateDto();
+
+        //}
+
     }
 }

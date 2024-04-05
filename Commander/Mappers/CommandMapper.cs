@@ -24,5 +24,14 @@ namespace Commander.Mappers
                 Platform = newCommand.Platform,
             };
         }
+
+        public static Command toCommandFromUpdateDto(this UpdateCommandDto updatedCommand)
+        {
+            return new Command
+            {
+                HowTo = updatedCommand.HowTo,
+                Line = updatedCommand.Line,
+            };
+        }
     }
 }

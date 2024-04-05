@@ -26,6 +26,11 @@ namespace Commander.Data
             return new Command { Id = id, HowTo = "Change Directory", Line = "cd <name of directory>", Platform = "Windows Command Prompt" };
         }
 
+        public void UpdateCommand(Command updatedCommand)
+        {
+            throw new NotImplementedException();
+        }
+
         //public IEnumerable<Command> GetAllCommands()
         //{
         //    var commands = new List<Command>

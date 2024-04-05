@@ -27,5 +27,10 @@ namespace Commander.Data
             _context.Commands.Add(newCommand);
             _context.SaveChanges();            
         }
+
+        public void UpdateCommand(Command updatedCommand)
+        {
+            // nothing to do
+        }
     }
 }
