@@ -3,8 +3,7 @@
 namespace Commander.Dtos.Command
 {
     public class UpdateCommandDto
-    {
-        public int Id { get; set; }
+    {        
 
         [Required]  //Data Annotation
         [MaxLength(250)]
@@ -14,3 +13,4 @@ namespace Commander.Dtos.Command
         public string Line { get; set; }
     }
 }
+    

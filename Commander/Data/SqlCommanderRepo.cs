@@ -24,6 +24,10 @@ namespace Commander.Data
 
         public void CreateCommand(Command newCommand)
         {            
+            if(newCommand == null)
+            {
+                throw new ArgumentNullException(nameof(newCommand));
+            }
             _context.Commands.Add(newCommand);
             _context.SaveChanges();            
         }
@@ -31,6 +35,13 @@ namespace Commander.Data
         public void UpdateCommand(Command updatedCommand)
         {
             // nothing to do
+            _context.SaveChanges();
+        }
+
+        public void DeleteCommand(Command commandToDelete)
+        {
+            _context.Remove(commandToDelete);
+            _context.SaveChanges();
         }
     }
 }

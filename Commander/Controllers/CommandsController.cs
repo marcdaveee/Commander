@@ -66,20 +66,38 @@ namespace Commander.Controllers
             return CreatedAtAction(nameof(GetCommandById), new { id = commandModel.Id }, commandModel.toCommandReadDto() );
         }
 
-        //[HttpPut("{id}")]
+        [HttpPut("{id}")]
 
-        //public IActionResult UpdateCommand([FromRoute] int id, [FromBody] UpdateCommandDto updatedCommandDto)
-        //{
-        //    var commandToUpdate = _repo.GetCommandById(id);
+        public IActionResult UpdateCommand([FromRoute] int id, [FromBody] UpdateCommandDto updatedCommandDto)
+        {
+            var commandModel = _repo.GetCommandById(id);
 
-        //    if(commandToUpdate == null)
-        //    {
-        //        return NotFound();
-        //    }
+            if(commandModel == null)
+            {
+                return NotFound();
+            }
 
-        //    var commandModel = updatedCommandDto.toCommandFromUpdateDto();
+            commandModel.HowTo = updatedCommandDto.HowTo;
+            commandModel.Line = updatedCommandDto.Line;
 
-        //}
+            _repo.UpdateCommand(commandModel);
 
+            return NoContent();        
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteCommand([FromRoute] int id)
+        {
+            var commandItem = _repo.GetCommandById(id);
+            
+            if(commandItem == null)
+            {
+                return NotFound();
+            }
+
+            _repo.DeleteCommand(commandItem);
+
+            return NoContent();
+        }
     }
 }

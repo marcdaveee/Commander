@@ -9,6 +9,11 @@ namespace Commander.Data
             throw new NotImplementedException();
         }
 
+        public void DeleteCommand(Command commandToDelete)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Command> GetAllCommands()
         {
             var commands = new List<Command> 

@@ -9,6 +9,8 @@ namespace Commander.Data
         void CreateCommand(Command newCommand);
 
         void UpdateCommand(Command updatedCommand);
+         
+        void DeleteCommand(Command commandToDelete);
 
     }
 }
