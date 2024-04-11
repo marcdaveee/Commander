@@ -85,6 +85,12 @@ namespace Commander.Controllers
             return NoContent();        
         }
 
+        [HttpPatch]
+        public IActionResult PartialCommandUpdate(int id)
+        {
+
+        }
+
         [HttpDelete("{id}")]
         public IActionResult DeleteCommand([FromRoute] int id)
         {

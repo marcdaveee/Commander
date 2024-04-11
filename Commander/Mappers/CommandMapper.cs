@@ -33,5 +33,14 @@ namespace Commander.Mappers
                 Line = updatedCommand.Line,
             };
         }
+
+        public static UpdateCommandDto toUpdateCommandDto(this Command commandModel)
+        {
+            return new UpdateCommandDto
+            {
+                HowTo = commandModel.HowTo,
+                Line = commandModel.Line,
+            };
+        }
     }
 }
