@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using AutoMapper.Execution;
 using Commander.Data;
 using Commander.Dtos.Command;
 using Commander.Mappers;
 using Commander.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Commander.Controllers
@@ -19,15 +21,15 @@ namespace Commander.Controllers
 
 
         //Assign the dependency injected value to be used inside this class using constructor injection
-        public CommandsController(ICommanderRepo repo, IMapper mapper)  
+        public CommandsController(ICommanderRepo repo, IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;
         }
-        
+
         //GET api/commands
         [HttpGet]
-        public ActionResult <IEnumerable<CommandReadDto>> GetAllCommands() { 
+        public ActionResult<IEnumerable<CommandReadDto>> GetAllCommands() {
 
             // Using defined extension mapping methods
             var commandItems = _repo.GetAllCommands().Select(c => c.toCommandReadDto());
@@ -44,7 +46,7 @@ namespace Commander.Controllers
             // Using defined extension mapping methods
             var commandItem = _repo.GetCommandById(id);
 
-            if(commandItem == null)
+            if (commandItem == null)
             {
                 return NotFound();
             }
@@ -63,7 +65,7 @@ namespace Commander.Controllers
 
             _repo.CreateCommand(commandModel);
 
-            return CreatedAtAction(nameof(GetCommandById), new { id = commandModel.Id }, commandModel.toCommandReadDto() );
+            return CreatedAtAction(nameof(GetCommandById), new { id = commandModel.Id }, commandModel.toCommandReadDto());
         }
 
         [HttpPut("{id}")]
@@ -72,7 +74,7 @@ namespace Commander.Controllers
         {
             var commandModel = _repo.GetCommandById(id);
 
-            if(commandModel == null)
+            if (commandModel == null)
             {
                 return NotFound();
             }
@@ -82,12 +84,41 @@ namespace Commander.Controllers
 
             _repo.UpdateCommand(commandModel);
 
-            return NoContent();        
+            return NoContent();
         }
 
-        [HttpPatch]
-        public IActionResult PartialCommandUpdate(int id)
+        [HttpPatch("{id}")]
+        public IActionResult PartialCommandUpdate([FromRoute] int id, [FromBody] JsonPatchDocument<UpdateCommandDto> patchDoc)
         {
+            var commandModelFromRepo = _repo.GetCommandById(id);
+
+            if(commandModelFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            //var commandToPatch = commandModelFromRepo.toUpdateCommandDto();
+
+            var commandToPatch =  _mapper.Map<UpdateCommandDto>(commandModelFromRepo);
+
+            patchDoc.ApplyTo(commandToPatch, ModelState);
+
+            if (!TryValidateModel(commandToPatch))
+            {
+                return ValidationProblem(ModelState);
+            }
+
+            _mapper.Map(commandToPatch, commandModelFromRepo);
+
+            //var updatedCommandModel = commandToPatch.toCommandFromUpdateDto();
+
+            //commandModelFromRepo = updatedCommandModel;
+
+
+
+            _repo.UpdateCommand(commandModelFromRepo);    
+
+            return NoContent();
 
         }
 
